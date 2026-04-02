@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# generated stats cache (written by cron, not source-controlled)
+/data/stats-cache.json
+dev.db
+data/stats-cache.json

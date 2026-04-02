@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Trailer {
+  id          String   @id
+  movieTitle  String
+  youtubeId   String   @unique
+  releaseDate String
+  studio      String
+  createdAt   DateTime @default(now())
+}
+
+model StatsCache {
+  youtubeId       String   @id
+  views           Int
+  likes           Int
+  comments        Int
+  likesPerView    Float
+  commentsPerView Float
+  title           String
+  publishedAt     String
+  thumbnailUrl    String
+  refreshedAt     DateTime
+}

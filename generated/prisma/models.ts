@@ -9,5 +9,6 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/Trailer'
+export type * from './models/BoxOffice'
 export type * from './models/StatsCache'
 export type * from './commonInputTypes'

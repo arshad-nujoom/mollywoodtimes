@@ -8,12 +8,27 @@ datasource db {
 }
 
 model Trailer {
-  id          String   @id
-  movieTitle  String
-  youtubeId   String   @unique
-  releaseDate String
-  studio      String
-  createdAt   DateTime @default(now())
+  id               String    @id
+  movieTitle       String
+  youtubeId        String    @unique
+  releaseDate      String
+  studio           String
+  movieReleaseDate String?
+  createdAt        DateTime  @default(now())
+  boxOffice        BoxOffice?
+}
+
+model BoxOffice {
+  id            String   @id @default(cuid())
+  trailerId     String   @unique
+  trailer       Trailer  @relation(fields: [trailerId], references: [id])
+  day1India     Float?
+  day1Worldwide Float?
+  source        String
+  sourceUrl     String?
+  rawText       String?
+  collectedAt   DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model StatsCache {

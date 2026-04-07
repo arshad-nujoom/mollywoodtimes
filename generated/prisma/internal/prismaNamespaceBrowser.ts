@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Trailer: 'Trailer',
+  BoxOffice: 'BoxOffice',
   StatsCache: 'StatsCache'
 } as const
 
@@ -74,10 +75,26 @@ export const TrailerScalarFieldEnum = {
   youtubeId: 'youtubeId',
   releaseDate: 'releaseDate',
   studio: 'studio',
+  movieReleaseDate: 'movieReleaseDate',
   createdAt: 'createdAt'
 } as const
 
 export type TrailerScalarFieldEnum = (typeof TrailerScalarFieldEnum)[keyof typeof TrailerScalarFieldEnum]
+
+
+export const BoxOfficeScalarFieldEnum = {
+  id: 'id',
+  trailerId: 'trailerId',
+  day1India: 'day1India',
+  day1Worldwide: 'day1Worldwide',
+  source: 'source',
+  sourceUrl: 'sourceUrl',
+  rawText: 'rawText',
+  collectedAt: 'collectedAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BoxOfficeScalarFieldEnum = (typeof BoxOfficeScalarFieldEnum)[keyof typeof BoxOfficeScalarFieldEnum]
 
 
 export const StatsCacheScalarFieldEnum = {
@@ -102,4 +119,12 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

@@ -23,6 +23,11 @@ export * from './enums';
  */
 export type Trailer = Prisma.TrailerModel
 /**
+ * Model BoxOffice
+ * 
+ */
+export type BoxOffice = Prisma.BoxOfficeModel
+/**
  * Model StatsCache
  * 
  */

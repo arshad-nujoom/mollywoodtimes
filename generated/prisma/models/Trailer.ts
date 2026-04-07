@@ -30,6 +30,7 @@ export type TrailerMinAggregateOutputType = {
   youtubeId: string | null
   releaseDate: string | null
   studio: string | null
+  movieReleaseDate: string | null
   createdAt: Date | null
 }
 
@@ -39,6 +40,7 @@ export type TrailerMaxAggregateOutputType = {
   youtubeId: string | null
   releaseDate: string | null
   studio: string | null
+  movieReleaseDate: string | null
   createdAt: Date | null
 }
 
@@ -48,6 +50,7 @@ export type TrailerCountAggregateOutputType = {
   youtubeId: number
   releaseDate: number
   studio: number
+  movieReleaseDate: number
   createdAt: number
   _all: number
 }
@@ -59,6 +62,7 @@ export type TrailerMinAggregateInputType = {
   youtubeId?: true
   releaseDate?: true
   studio?: true
+  movieReleaseDate?: true
   createdAt?: true
 }
 
@@ -68,6 +72,7 @@ export type TrailerMaxAggregateInputType = {
   youtubeId?: true
   releaseDate?: true
   studio?: true
+  movieReleaseDate?: true
   createdAt?: true
 }
 
@@ -77,6 +82,7 @@ export type TrailerCountAggregateInputType = {
   youtubeId?: true
   releaseDate?: true
   studio?: true
+  movieReleaseDate?: true
   createdAt?: true
   _all?: true
 }
@@ -159,6 +165,7 @@ export type TrailerGroupByOutputType = {
   youtubeId: string
   releaseDate: string
   studio: string
+  movieReleaseDate: string | null
   createdAt: Date
   _count: TrailerCountAggregateOutputType | null
   _min: TrailerMinAggregateOutputType | null
@@ -189,7 +196,9 @@ export type TrailerWhereInput = {
   youtubeId?: Prisma.StringFilter<"Trailer"> | string
   releaseDate?: Prisma.StringFilter<"Trailer"> | string
   studio?: Prisma.StringFilter<"Trailer"> | string
+  movieReleaseDate?: Prisma.StringNullableFilter<"Trailer"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Trailer"> | Date | string
+  boxOffice?: Prisma.XOR<Prisma.BoxOfficeNullableScalarRelationFilter, Prisma.BoxOfficeWhereInput> | null
 }
 
 export type TrailerOrderByWithRelationInput = {
@@ -198,7 +207,9 @@ export type TrailerOrderByWithRelationInput = {
   youtubeId?: Prisma.SortOrder
   releaseDate?: Prisma.SortOrder
   studio?: Prisma.SortOrder
+  movieReleaseDate?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  boxOffice?: Prisma.BoxOfficeOrderByWithRelationInput
 }
 
 export type TrailerWhereUniqueInput = Prisma.AtLeast<{
@@ -210,7 +221,9 @@ export type TrailerWhereUniqueInput = Prisma.AtLeast<{
   movieTitle?: Prisma.StringFilter<"Trailer"> | string
   releaseDate?: Prisma.StringFilter<"Trailer"> | string
   studio?: Prisma.StringFilter<"Trailer"> | string
+  movieReleaseDate?: Prisma.StringNullableFilter<"Trailer"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Trailer"> | Date | string
+  boxOffice?: Prisma.XOR<Prisma.BoxOfficeNullableScalarRelationFilter, Prisma.BoxOfficeWhereInput> | null
 }, "id" | "youtubeId">
 
 export type TrailerOrderByWithAggregationInput = {
@@ -219,6 +232,7 @@ export type TrailerOrderByWithAggregationInput = {
   youtubeId?: Prisma.SortOrder
   releaseDate?: Prisma.SortOrder
   studio?: Prisma.SortOrder
+  movieReleaseDate?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.TrailerCountOrderByAggregateInput
   _max?: Prisma.TrailerMaxOrderByAggregateInput
@@ -234,6 +248,7 @@ export type TrailerScalarWhereWithAggregatesInput = {
   youtubeId?: Prisma.StringWithAggregatesFilter<"Trailer"> | string
   releaseDate?: Prisma.StringWithAggregatesFilter<"Trailer"> | string
   studio?: Prisma.StringWithAggregatesFilter<"Trailer"> | string
+  movieReleaseDate?: Prisma.StringNullableWithAggregatesFilter<"Trailer"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Trailer"> | Date | string
 }
 
@@ -243,7 +258,9 @@ export type TrailerCreateInput = {
   youtubeId: string
   releaseDate: string
   studio: string
+  movieReleaseDate?: string | null
   createdAt?: Date | string
+  boxOffice?: Prisma.BoxOfficeCreateNestedOneWithoutTrailerInput
 }
 
 export type TrailerUncheckedCreateInput = {
@@ -252,7 +269,9 @@ export type TrailerUncheckedCreateInput = {
   youtubeId: string
   releaseDate: string
   studio: string
+  movieReleaseDate?: string | null
   createdAt?: Date | string
+  boxOffice?: Prisma.BoxOfficeUncheckedCreateNestedOneWithoutTrailerInput
 }
 
 export type TrailerUpdateInput = {
@@ -261,7 +280,9 @@ export type TrailerUpdateInput = {
   youtubeId?: Prisma.StringFieldUpdateOperationsInput | string
   releaseDate?: Prisma.StringFieldUpdateOperationsInput | string
   studio?: Prisma.StringFieldUpdateOperationsInput | string
+  movieReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  boxOffice?: Prisma.BoxOfficeUpdateOneWithoutTrailerNestedInput
 }
 
 export type TrailerUncheckedUpdateInput = {
@@ -270,7 +291,9 @@ export type TrailerUncheckedUpdateInput = {
   youtubeId?: Prisma.StringFieldUpdateOperationsInput | string
   releaseDate?: Prisma.StringFieldUpdateOperationsInput | string
   studio?: Prisma.StringFieldUpdateOperationsInput | string
+  movieReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  boxOffice?: Prisma.BoxOfficeUncheckedUpdateOneWithoutTrailerNestedInput
 }
 
 export type TrailerCreateManyInput = {
@@ -279,6 +302,7 @@ export type TrailerCreateManyInput = {
   youtubeId: string
   releaseDate: string
   studio: string
+  movieReleaseDate?: string | null
   createdAt?: Date | string
 }
 
@@ -288,6 +312,7 @@ export type TrailerUpdateManyMutationInput = {
   youtubeId?: Prisma.StringFieldUpdateOperationsInput | string
   releaseDate?: Prisma.StringFieldUpdateOperationsInput | string
   studio?: Prisma.StringFieldUpdateOperationsInput | string
+  movieReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -297,6 +322,7 @@ export type TrailerUncheckedUpdateManyInput = {
   youtubeId?: Prisma.StringFieldUpdateOperationsInput | string
   releaseDate?: Prisma.StringFieldUpdateOperationsInput | string
   studio?: Prisma.StringFieldUpdateOperationsInput | string
+  movieReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -306,6 +332,7 @@ export type TrailerCountOrderByAggregateInput = {
   youtubeId?: Prisma.SortOrder
   releaseDate?: Prisma.SortOrder
   studio?: Prisma.SortOrder
+  movieReleaseDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -315,6 +342,7 @@ export type TrailerMaxOrderByAggregateInput = {
   youtubeId?: Prisma.SortOrder
   releaseDate?: Prisma.SortOrder
   studio?: Prisma.SortOrder
+  movieReleaseDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -324,15 +352,95 @@ export type TrailerMinOrderByAggregateInput = {
   youtubeId?: Prisma.SortOrder
   releaseDate?: Prisma.SortOrder
   studio?: Prisma.SortOrder
+  movieReleaseDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type TrailerScalarRelationFilter = {
+  is?: Prisma.TrailerWhereInput
+  isNot?: Prisma.TrailerWhereInput
 }
 
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type TrailerCreateNestedOneWithoutBoxOfficeInput = {
+  create?: Prisma.XOR<Prisma.TrailerCreateWithoutBoxOfficeInput, Prisma.TrailerUncheckedCreateWithoutBoxOfficeInput>
+  connectOrCreate?: Prisma.TrailerCreateOrConnectWithoutBoxOfficeInput
+  connect?: Prisma.TrailerWhereUniqueInput
+}
+
+export type TrailerUpdateOneRequiredWithoutBoxOfficeNestedInput = {
+  create?: Prisma.XOR<Prisma.TrailerCreateWithoutBoxOfficeInput, Prisma.TrailerUncheckedCreateWithoutBoxOfficeInput>
+  connectOrCreate?: Prisma.TrailerCreateOrConnectWithoutBoxOfficeInput
+  upsert?: Prisma.TrailerUpsertWithoutBoxOfficeInput
+  connect?: Prisma.TrailerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrailerUpdateToOneWithWhereWithoutBoxOfficeInput, Prisma.TrailerUpdateWithoutBoxOfficeInput>, Prisma.TrailerUncheckedUpdateWithoutBoxOfficeInput>
+}
+
+export type TrailerCreateWithoutBoxOfficeInput = {
+  id: string
+  movieTitle: string
+  youtubeId: string
+  releaseDate: string
+  studio: string
+  movieReleaseDate?: string | null
+  createdAt?: Date | string
+}
+
+export type TrailerUncheckedCreateWithoutBoxOfficeInput = {
+  id: string
+  movieTitle: string
+  youtubeId: string
+  releaseDate: string
+  studio: string
+  movieReleaseDate?: string | null
+  createdAt?: Date | string
+}
+
+export type TrailerCreateOrConnectWithoutBoxOfficeInput = {
+  where: Prisma.TrailerWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrailerCreateWithoutBoxOfficeInput, Prisma.TrailerUncheckedCreateWithoutBoxOfficeInput>
+}
+
+export type TrailerUpsertWithoutBoxOfficeInput = {
+  update: Prisma.XOR<Prisma.TrailerUpdateWithoutBoxOfficeInput, Prisma.TrailerUncheckedUpdateWithoutBoxOfficeInput>
+  create: Prisma.XOR<Prisma.TrailerCreateWithoutBoxOfficeInput, Prisma.TrailerUncheckedCreateWithoutBoxOfficeInput>
+  where?: Prisma.TrailerWhereInput
+}
+
+export type TrailerUpdateToOneWithWhereWithoutBoxOfficeInput = {
+  where?: Prisma.TrailerWhereInput
+  data: Prisma.XOR<Prisma.TrailerUpdateWithoutBoxOfficeInput, Prisma.TrailerUncheckedUpdateWithoutBoxOfficeInput>
+}
+
+export type TrailerUpdateWithoutBoxOfficeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  movieTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  youtubeId?: Prisma.StringFieldUpdateOperationsInput | string
+  releaseDate?: Prisma.StringFieldUpdateOperationsInput | string
+  studio?: Prisma.StringFieldUpdateOperationsInput | string
+  movieReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TrailerUncheckedUpdateWithoutBoxOfficeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  movieTitle?: Prisma.StringFieldUpdateOperationsInput | string
+  youtubeId?: Prisma.StringFieldUpdateOperationsInput | string
+  releaseDate?: Prisma.StringFieldUpdateOperationsInput | string
+  studio?: Prisma.StringFieldUpdateOperationsInput | string
+  movieReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -343,7 +451,9 @@ export type TrailerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   youtubeId?: boolean
   releaseDate?: boolean
   studio?: boolean
+  movieReleaseDate?: boolean
   createdAt?: boolean
+  boxOffice?: boolean | Prisma.Trailer$boxOfficeArgs<ExtArgs>
 }, ExtArgs["result"]["trailer"]>
 
 export type TrailerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -352,6 +462,7 @@ export type TrailerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   youtubeId?: boolean
   releaseDate?: boolean
   studio?: boolean
+  movieReleaseDate?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["trailer"]>
 
@@ -361,6 +472,7 @@ export type TrailerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   youtubeId?: boolean
   releaseDate?: boolean
   studio?: boolean
+  movieReleaseDate?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["trailer"]>
 
@@ -370,20 +482,29 @@ export type TrailerSelectScalar = {
   youtubeId?: boolean
   releaseDate?: boolean
   studio?: boolean
+  movieReleaseDate?: boolean
   createdAt?: boolean
 }
 
-export type TrailerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "movieTitle" | "youtubeId" | "releaseDate" | "studio" | "createdAt", ExtArgs["result"]["trailer"]>
+export type TrailerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "movieTitle" | "youtubeId" | "releaseDate" | "studio" | "movieReleaseDate" | "createdAt", ExtArgs["result"]["trailer"]>
+export type TrailerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  boxOffice?: boolean | Prisma.Trailer$boxOfficeArgs<ExtArgs>
+}
+export type TrailerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type TrailerIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $TrailerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Trailer"
-  objects: {}
+  objects: {
+    boxOffice: Prisma.$BoxOfficePayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     movieTitle: string
     youtubeId: string
     releaseDate: string
     studio: string
+    movieReleaseDate: string | null
     createdAt: Date
   }, ExtArgs["result"]["trailer"]>
   composites: {}
@@ -779,6 +900,7 @@ readonly fields: TrailerFieldRefs;
  */
 export interface Prisma__TrailerClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  boxOffice<T extends Prisma.Trailer$boxOfficeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trailer$boxOfficeArgs<ExtArgs>>): Prisma.Prisma__BoxOfficeClient<runtime.Types.Result.GetResult<Prisma.$BoxOfficePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -813,6 +935,7 @@ export interface TrailerFieldRefs {
   readonly youtubeId: Prisma.FieldRef<"Trailer", 'String'>
   readonly releaseDate: Prisma.FieldRef<"Trailer", 'String'>
   readonly studio: Prisma.FieldRef<"Trailer", 'String'>
+  readonly movieReleaseDate: Prisma.FieldRef<"Trailer", 'String'>
   readonly createdAt: Prisma.FieldRef<"Trailer", 'DateTime'>
 }
     
@@ -830,6 +953,10 @@ export type TrailerFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the Trailer
    */
   omit?: Prisma.TrailerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrailerInclude<ExtArgs> | null
   /**
    * Filter, which Trailer to fetch.
    */
@@ -849,6 +976,10 @@ export type TrailerFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.TrailerOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrailerInclude<ExtArgs> | null
+  /**
    * Filter, which Trailer to fetch.
    */
   where: Prisma.TrailerWhereUniqueInput
@@ -866,6 +997,10 @@ export type TrailerFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the Trailer
    */
   omit?: Prisma.TrailerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrailerInclude<ExtArgs> | null
   /**
    * Filter, which Trailer to fetch.
    */
@@ -915,6 +1050,10 @@ export type TrailerFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.TrailerOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrailerInclude<ExtArgs> | null
+  /**
    * Filter, which Trailer to fetch.
    */
   where?: Prisma.TrailerWhereInput
@@ -962,6 +1101,10 @@ export type TrailerFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Trailer
    */
   omit?: Prisma.TrailerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrailerInclude<ExtArgs> | null
   /**
    * Filter, which Trailers to fetch.
    */
@@ -1011,6 +1154,10 @@ export type TrailerCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.TrailerOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrailerInclude<ExtArgs> | null
+  /**
    * The data needed to create a Trailer.
    */
   data: Prisma.XOR<Prisma.TrailerCreateInput, Prisma.TrailerUncheckedCreateInput>
@@ -1056,6 +1203,10 @@ export type TrailerUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Trailer
    */
   omit?: Prisma.TrailerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrailerInclude<ExtArgs> | null
   /**
    * The data needed to update a Trailer.
    */
@@ -1123,6 +1274,10 @@ export type TrailerUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.TrailerOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrailerInclude<ExtArgs> | null
+  /**
    * The filter to search for the Trailer to update in case it exists.
    */
   where: Prisma.TrailerWhereUniqueInput
@@ -1149,6 +1304,10 @@ export type TrailerDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.TrailerOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrailerInclude<ExtArgs> | null
+  /**
    * Filter which Trailer to delete.
    */
   where: Prisma.TrailerWhereUniqueInput
@@ -1169,6 +1328,25 @@ export type TrailerDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
+ * Trailer.boxOffice
+ */
+export type Trailer$boxOfficeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BoxOffice
+   */
+  select?: Prisma.BoxOfficeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BoxOffice
+   */
+  omit?: Prisma.BoxOfficeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BoxOfficeInclude<ExtArgs> | null
+  where?: Prisma.BoxOfficeWhereInput
+}
+
+/**
  * Trailer without action
  */
 export type TrailerDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1180,4 +1358,8 @@ export type TrailerDefaultArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Trailer
    */
   omit?: Prisma.TrailerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrailerInclude<ExtArgs> | null
 }

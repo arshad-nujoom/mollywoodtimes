@@ -385,6 +385,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   Trailer: 'Trailer',
+  BoxOffice: 'BoxOffice',
   StatsCache: 'StatsCache'
 } as const
 
@@ -401,7 +402,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "trailer" | "statsCache"
+    modelProps: "trailer" | "boxOffice" | "statsCache"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -476,6 +477,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.TrailerCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.TrailerCountAggregateOutputType> | number
+        }
+      }
+    }
+    BoxOffice: {
+      payload: Prisma.$BoxOfficePayload<ExtArgs>
+      fields: Prisma.BoxOfficeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BoxOfficeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxOfficePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BoxOfficeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxOfficePayload>
+        }
+        findFirst: {
+          args: Prisma.BoxOfficeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxOfficePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BoxOfficeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxOfficePayload>
+        }
+        findMany: {
+          args: Prisma.BoxOfficeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxOfficePayload>[]
+        }
+        create: {
+          args: Prisma.BoxOfficeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxOfficePayload>
+        }
+        createMany: {
+          args: Prisma.BoxOfficeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BoxOfficeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxOfficePayload>[]
+        }
+        delete: {
+          args: Prisma.BoxOfficeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxOfficePayload>
+        }
+        update: {
+          args: Prisma.BoxOfficeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxOfficePayload>
+        }
+        deleteMany: {
+          args: Prisma.BoxOfficeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BoxOfficeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BoxOfficeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxOfficePayload>[]
+        }
+        upsert: {
+          args: Prisma.BoxOfficeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxOfficePayload>
+        }
+        aggregate: {
+          args: Prisma.BoxOfficeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBoxOffice>
+        }
+        groupBy: {
+          args: Prisma.BoxOfficeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BoxOfficeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BoxOfficeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BoxOfficeCountAggregateOutputType> | number
         }
       }
     }
@@ -595,10 +670,26 @@ export const TrailerScalarFieldEnum = {
   youtubeId: 'youtubeId',
   releaseDate: 'releaseDate',
   studio: 'studio',
+  movieReleaseDate: 'movieReleaseDate',
   createdAt: 'createdAt'
 } as const
 
 export type TrailerScalarFieldEnum = (typeof TrailerScalarFieldEnum)[keyof typeof TrailerScalarFieldEnum]
+
+
+export const BoxOfficeScalarFieldEnum = {
+  id: 'id',
+  trailerId: 'trailerId',
+  day1India: 'day1India',
+  day1Worldwide: 'day1Worldwide',
+  source: 'source',
+  sourceUrl: 'sourceUrl',
+  rawText: 'rawText',
+  collectedAt: 'collectedAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BoxOfficeScalarFieldEnum = (typeof BoxOfficeScalarFieldEnum)[keyof typeof BoxOfficeScalarFieldEnum]
 
 
 export const StatsCacheScalarFieldEnum = {
@@ -625,6 +716,14 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
 
 /**
  * Field references
@@ -646,16 +745,16 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
 
 
 /**
- * Reference to a field of type 'Int'
+ * Reference to a field of type 'Float'
  */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
     
 
 
 /**
- * Reference to a field of type 'Float'
+ * Reference to a field of type 'Int'
  */
-export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 /**
@@ -754,6 +853,7 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   trailer?: Prisma.TrailerOmit
+  boxOffice?: Prisma.BoxOfficeOmit
   statsCache?: Prisma.StatsCacheOmit
 }
 

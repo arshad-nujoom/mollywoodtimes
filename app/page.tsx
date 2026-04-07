@@ -8,8 +8,16 @@ import {
 import { Trailer } from "@/lib/trailers";
 import { VideoStats } from "@/lib/youtube";
 
+interface BoxOffice {
+  day1India: number | null;
+  day1Worldwide: number | null;
+  source: string;
+}
+
 interface TrailerWithStats extends Trailer {
   stats: VideoStats | null;
+  movieReleaseDate?: string | null;
+  boxOffice?: BoxOffice | null;
 }
 
 type SortKey = "views" | "likes" | "comments" | "likesPerView" | "commentsPerView";
@@ -39,14 +47,6 @@ const COLORS = [
   "#3b82f6", "#ec4899", "#14b8a6", "#f97316", "#84cc16",
 ];
 
-function extractYoutubeId(input: string): string {
-  try {
-    const url = new URL(input);
-    return url.searchParams.get("v") || input;
-  } catch {
-    return input;
-  }
-}
 
 function parseDate(dateStr: string): { year: number; month: number } | null {
   if (!dateStr) return null;
@@ -66,12 +66,6 @@ export default function Dashboard() {
   const [filterYear, setFilterYear] = useState<string>("all");
   const [filterMonth, setFilterMonth] = useState<string>("all");
 
-  // Modal
-  const [showModal, setShowModal] = useState(false);
-  const [form, setForm] = useState({ movieTitle: "", youtubeUrl: "", releaseDate: "", studio: "" });
-  const [submitting, setSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
-
   function loadTrailers() {
     setLoading(true);
     fetch("/api/trailers")
@@ -81,27 +75,6 @@ export default function Dashboard() {
   }
 
   useEffect(() => { loadTrailers(); }, []);
-
-  async function handleAddTrailer() {
-    setSubmitting(true);
-    setSubmitError(null);
-    const youtubeId = extractYoutubeId(form.youtubeUrl.trim());
-    const res = await fetch("/api/trailers", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...form, youtubeId }),
-    });
-    const data = await res.json();
-    if (!res.ok) {
-      setSubmitError(data.error || "Something went wrong");
-      setSubmitting(false);
-      return;
-    }
-    setShowModal(false);
-    setForm({ movieTitle: "", youtubeUrl: "", releaseDate: "", studio: "" });
-    setSubmitting(false);
-    loadTrailers();
-  }
 
   // Derive available years and months from the data
   const availableYears = useMemo(() => {
@@ -163,76 +136,13 @@ export default function Dashboard() {
           <h1 className="text-3xl font-bold text-white">Malayalam Trailer Dashboard</h1>
           <p className="text-gray-400 mt-1">2026 trailers — YouTube engagement comparison</p>
         </div>
-        <button
-          onClick={() => setShowModal(true)}
-          className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors shadow-lg"
+        <a
+          href="/admin"
+          className="text-xs text-gray-600 hover:text-gray-400 transition-colors mt-1"
         >
-          <span className="text-lg leading-none">+</span> Add Trailer
-        </button>
+          Admin ↗
+        </a>
       </header>
-
-      {/* Add Trailer Modal */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-gray-900 border border-gray-700 rounded-2xl p-6 w-full max-w-md shadow-2xl">
-            <h2 className="text-xl font-bold text-white mb-4">Add New Trailer</h2>
-            <div className="flex flex-col gap-3">
-              <div>
-                <label className="text-xs text-gray-400 mb-1 block">Movie Title *</label>
-                <input
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500"
-                  placeholder="e.g. Marco"
-                  value={form.movieTitle}
-                  onChange={(e) => setForm({ ...form, movieTitle: e.target.value })}
-                />
-              </div>
-              <div>
-                <label className="text-xs text-gray-400 mb-1 block">YouTube URL or Video ID *</label>
-                <input
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500"
-                  placeholder="https://youtube.com/watch?v=... or video ID"
-                  value={form.youtubeUrl}
-                  onChange={(e) => setForm({ ...form, youtubeUrl: e.target.value })}
-                />
-              </div>
-              <div>
-                <label className="text-xs text-gray-400 mb-1 block">Release Date</label>
-                <input
-                  type="date"
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500"
-                  value={form.releaseDate}
-                  onChange={(e) => setForm({ ...form, releaseDate: e.target.value })}
-                />
-              </div>
-              <div>
-                <label className="text-xs text-gray-400 mb-1 block">Studio</label>
-                <input
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500"
-                  placeholder="e.g. Aashirvad Cinemas"
-                  value={form.studio}
-                  onChange={(e) => setForm({ ...form, studio: e.target.value })}
-                />
-              </div>
-              {submitError && <p className="text-red-400 text-xs">{submitError}</p>}
-              <div className="flex gap-2 mt-2">
-                <button
-                  onClick={() => { setShowModal(false); setSubmitError(null); }}
-                  className="flex-1 bg-gray-800 hover:bg-gray-700 text-gray-300 px-4 py-2 rounded-lg text-sm transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleAddTrailer}
-                  disabled={submitting || !form.movieTitle || !form.youtubeUrl}
-                  className="flex-1 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-                >
-                  {submitting ? "Adding..." : "Add Trailer"}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {loading && (
         <div className="flex items-center justify-center h-64">
@@ -383,7 +293,9 @@ export default function Dashboard() {
               <thead>
                 <tr className="border-b border-gray-800">
                   <th className="text-left px-4 py-3 text-gray-400 font-medium">Movie</th>
-                  <th className="text-left px-4 py-3 text-gray-400 font-medium">Released</th>
+                  <th className="text-left px-4 py-3 text-gray-400 font-medium">Trailer Date</th>
+                  <th className="text-left px-4 py-3 text-gray-400 font-medium">Release Date</th>
+                  <th className="text-left px-4 py-3 text-gray-400 font-medium">Day 1 BO</th>
                   {(Object.keys(METRIC_LABELS) as SortKey[]).map((key) => (
                     <th key={key} onClick={() => setSortKey(key)}
                       className={`px-4 py-3 text-right font-medium cursor-pointer select-none transition-colors ${
@@ -398,7 +310,7 @@ export default function Dashboard() {
               <tbody>
                 {sorted.length === 0 ? (
                   <tr>
-                    <td colSpan={8} className="px-4 py-10 text-center text-gray-500 text-sm">
+                    <td colSpan={10} className="px-4 py-10 text-center text-gray-500 text-sm">
                       No trailers match the selected filters.
                     </td>
                   </tr>
@@ -413,7 +325,17 @@ export default function Dashboard() {
                             {t.movieTitle}
                           </span>
                         </td>
-                        <td className="px-4 py-3 text-gray-400">{t.releaseDate}</td>
+                        <td className="px-4 py-3 text-gray-400">{t.releaseDate || "—"}</td>
+                        <td className="px-4 py-3 text-gray-400">{t.movieReleaseDate || "—"}</td>
+                        <td className="px-4 py-3 text-xs">
+                          {t.boxOffice ? (
+                            <span className="text-green-400 leading-tight">
+                              {t.boxOffice.day1India != null ? `₹${t.boxOffice.day1India}Cr` : "—"}
+                              {" / "}
+                              {t.boxOffice.day1Worldwide != null ? `₹${t.boxOffice.day1Worldwide}Cr WW` : "—"}
+                            </span>
+                          ) : "—"}
+                        </td>
                         <td className="px-4 py-3 text-right tabular-nums">{s ? fmt(s.views) : "—"}</td>
                         <td className="px-4 py-3 text-right tabular-nums">{s ? fmt(s.likes) : "—"}</td>
                         <td className="px-4 py-3 text-right tabular-nums">{s ? fmt(s.comments) : "—"}</td>
